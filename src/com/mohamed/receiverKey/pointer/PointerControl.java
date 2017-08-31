@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mohamed.receiverKey;
+package com.mohamed.receiverKey.pointer;
 
 import java.awt.AWTException;
 import java.awt.MouseInfo;
@@ -61,4 +61,5 @@ public class PointerControl {
             Logger.getLogger(PointerControl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
 }
