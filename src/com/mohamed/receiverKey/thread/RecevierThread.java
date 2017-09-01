@@ -39,7 +39,7 @@ public class RecevierThread implements Runnable {
                 do{
                                     Util.println("data : " + dataInputStream.readInt());
 
-                    PointerControl.setPointerMovingAction(dataInputStream.readInt(), 10); 
+                    PointerControl.setPointerMovingAction(dataInputStream.readInt(), 20); 
                     read = dataInputStream.readInt();
                    
                 }while(read != -1);
