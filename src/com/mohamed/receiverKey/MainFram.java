@@ -6,11 +6,7 @@
 package com.mohamed.receiverKey;
 
 import com.mohamed.receiverKey.thread.RecevierThread;
-import java.awt.AWTException;
-import java.awt.MouseInfo;
-import java.awt.Robot;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -76,18 +72,7 @@ public class MainFram extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
-        // TODO add your handling code here:
-//        Robot robot;
-//        try {
-//            robot = new Robot();
-//            
-//            robot.mouseMove(120, 120);
-//        } catch (AWTException ex) {
-//            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        connectionState.setText(" x : " + MouseInfo.getPointerInfo().getLocation().x + " y: " + MouseInfo.getPointerInfo().getLocation().y);
         RecevierThread recevierThread = new RecevierThread();
-
     }//GEN-LAST:event_connectButtonActionPerformed
 
     
