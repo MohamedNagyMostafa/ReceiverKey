@@ -87,6 +87,7 @@ public class MainFram extends javax.swing.JFrame {
 //        }
 //        connectionState.setText(" x : " + MouseInfo.getPointerInfo().getLocation().x + " y: " + MouseInfo.getPointerInfo().getLocation().y);
         RecevierThread recevierThread = new RecevierThread();
+
     }//GEN-LAST:event_connectButtonActionPerformed
 
     

@@ -5,6 +5,8 @@
  */
 package com.mohamed.receiverKey.thread;
 
+import com.mohamed.receiverKey.pointer.PointerAction;
+import com.mohamed.receiverKey.pointer.PointerControl;
 import java.awt.Button;
 import java.awt.Color;
 import java.io.DataInputStream;
@@ -31,13 +33,15 @@ public class RecevierThread implements Runnable {
         try {
             ServerSocket socketServer = new ServerSocket(8888);
             while(true){
-                Socket socket = socketServer.accept();
-                DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-                String charAsInt = dataInputStream.readUTF();
-                System.out.println(charAsInt);
-                dataInputStream.close();
+                //Socket socket = socketServer.accept();
+                //DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+                PointerControl.setPointerMovingAction(PointerControl.INC_X_COOR, 10); 
+                //dataInputStream.close();
+                Thread.sleep(50);
             }
         } catch (IOException ex) {
+            Logger.getLogger(RecevierThread.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
             Logger.getLogger(RecevierThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
