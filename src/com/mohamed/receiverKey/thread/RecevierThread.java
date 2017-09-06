@@ -13,6 +13,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.function.IntPredicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -23,32 +24,53 @@ import javax.swing.JButton;
  */
 public class RecevierThread implements Runnable {
     
+    private static final String SPLITING_STRING = "_";
+    private static final int PORT_SERVER = 8888;
+    
     public RecevierThread(){
         new Thread(this, "Ui Changing").start();
     }
-     
 
     @Override
     public void run() {
+            Socket socket = null;
+            ServerSocket socketServer = null;
         try {
-            ServerSocket socketServer = new ServerSocket(8888);
+            
+            socketServer = new ServerSocket(PORT_SERVER);
+            
             while(true){
-                Socket socket = socketServer.accept();
-                DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-                int read = dataInputStream.readInt();
-                do{
-                                    Util.println("data : " + dataInputStream.readInt());
-
-                    PointerControl.setPointerMovingAction(dataInputStream.readInt(), 10); 
-                    read = dataInputStream.readInt();
-                   
-                }while(read != -1);
-                dataInputStream.close();
+                socket = socketServer.accept();
+                try (DataInputStream dataInputStream = new DataInputStream(socket.getInputStream())) {
+                    String dataAsUTFString = dataInputStream.readUTF();
+                    
+                    do{
+                        int[] coordinatesAsInt = decodeData(dataInputStream.readUTF());
+                        PointerControl.setPointerMovingAction(coordinatesAsInt[0], coordinatesAsInt[1]);
+                        dataAsUTFString = dataInputStream.readUTF();
+                        
+                    }while(!dataAsUTFString.isEmpty());
+                }
             }
+           
         } catch (IOException ex) {
             Logger.getLogger(RecevierThread.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+                try {
+                    if(socket != null )
+                        socket.close();
+                    if(socketServer != null)
+                        socketServer.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(RecevierThread.class.getName()).log(Level.SEVERE, null, ex);
+                }
         }
     }
     
-   
+    private int[] decodeData(String dataAsString){
+        System.out.println(dataAsString);
+        String[] splitData = dataAsString.split(SPLITING_STRING);
+        return new int[]{Integer.parseInt(splitData[0]), Integer.parseInt(splitData[1])};
+    }
+    
 }
