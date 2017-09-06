@@ -180,12 +180,10 @@ public class ProducerCoordinate {
             Util.println("start point x");
             
             if(Y_PRODUCER_STATE == NO_CHANGE_COORDINATE){
-                MOUSE_POINT.setEndProducer(X_COORDINATE_PRODUCER);
                 Util.println("start point only x");
                 X_ProducerThread.start();
             }else{ 
                 Util.println("start point x - >y");
-                MOUSE_POINT.setEndProducer(Y_COORDINATE_PRODUCER);
                 X_ProducerThread.start();
                 Y_ProducerThread.start();
             }
@@ -193,12 +191,10 @@ public class ProducerCoordinate {
             currentProducer = Y_COORDINATE_PRODUCER;
             Util.println("start point y");
             if(X_PRODUCER_STATE == NO_CHANGE_COORDINATE){
-                MOUSE_POINT.setEndProducer(Y_COORDINATE_PRODUCER);
                 Util.println("start point only y");
                 Y_ProducerThread.start();
 
             }else{
-                MOUSE_POINT.setEndProducer(X_COORDINATE_PRODUCER);
                 Util.println("start point y - >x");
                 Y_ProducerThread.start();
                 X_ProducerThread.start();

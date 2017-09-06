@@ -19,7 +19,6 @@ public class MousePoint {
     private int mX;
     private int mY;
     private Robot mouseControllRobot;
-    private int endProducer;
     
     public MousePoint(){
         mX = MouseInfo.getPointerInfo().getLocation().x;
@@ -30,10 +29,7 @@ public class MousePoint {
             Logger.getLogger(MousePoint.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void setEndProducer(final int PRODUCER){
-        endProducer = PRODUCER;
-    }
+   
     
     public void setX(int x){
         mX = x;
@@ -52,13 +48,8 @@ public class MousePoint {
     }
     
     public void updateMouse(int producer){
-        if(producer == endProducer){
-            mouseControllRobot.mouseMove(mX, mY);
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(MousePoint.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        mouseControllRobot.mouseMove(mX, mY);
+       
+        
     }
 }

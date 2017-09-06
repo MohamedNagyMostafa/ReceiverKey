@@ -8,6 +8,8 @@ package com.mohamed.receiverKey.pointer;
 import com.mohamed.receiverKey.producer.ProducerCoordinate;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Util;
 import java.awt.MouseInfo;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  *
@@ -30,6 +32,7 @@ public class Task {
         
     }
     
+
     
     public int get_X_endPoint(){
         return MouseInfo.getPointerInfo().getLocation().x + X_COORDINATE_DISTANCE;
