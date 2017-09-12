@@ -5,8 +5,7 @@
  */
 package com.mohamed.receiverKey.producer;
 
-import com.mohamed.receiverKey.pointer.MousePoint;
-import com.mohamed.receiverKey.pointer.Task;
+import com.mohamed.receiverKey.pointer.Actions.Moving.MousePoint;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Util;
 import java.awt.AWTException;
 import java.awt.MouseInfo;
@@ -47,6 +46,7 @@ public class ProducerCoordinate {
     // Determine the producer which run now.
     private int currentProducer;
    
+    private Robot MOUSE_SYSTEM_CONTROL;
     
     private static class ProducerCoordinateHolder{
         private static final ProducerCoordinate PRODUCER_COORDINATE = new ProducerCoordinate();
@@ -55,11 +55,12 @@ public class ProducerCoordinate {
     public static ProducerCoordinate getInstance(){  
         return ProducerCoordinateHolder.PRODUCER_COORDINATE; 
     }
+    
     /**
      * To add new task for coordinate producer which hold coordinates data.
      * @param task  the new task
      */
-    public void addTask(Task task){
+    public void addTask(MovingTask task){
         END_POINT_X_COORDINATE = task.get_X_endPoint();
         END_POINT_Y_COORDINATE = task.get_Y_endPoint();
         X_PRODUCER_STATE = task.get_X_state();
@@ -74,15 +75,17 @@ public class ProducerCoordinate {
         init();
     }
     
+    public void setMouse(final Robot MOUSE_SYSTEM_CONTROL){
+        this.MOUSE_SYSTEM_CONTROL = MOUSE_SYSTEM_CONTROL;
+    }
+    
     private void init(){
-        final MousePoint mouserPoint = new MousePoint();
+        final MousePoint mouserPoint = new MousePoint(MOUSE_SYSTEM_CONTROL);
         
         X_ProducerThread = new Thread(()->{
                         
             while(mouserPoint.getX() != END_POINT_X_COORDINATE){
-                Util.println("thread x  current value : " + mouserPoint.getX() + " wanted " + END_POINT_X_COORDINATE);
                 producerThreadProcess(mouserPoint, X_COORDINATE_PRODUCER);
-                Util.println("thread x end current value : " + mouserPoint.getX() + " wanted " + END_POINT_X_COORDINATE);
 
             }
         });
@@ -90,9 +93,7 @@ public class ProducerCoordinate {
         Y_ProducerThread = new Thread(()->{
                         
             while(mouserPoint.getY() != END_POINT_Y_COORDINATE){
-                Util.println("thread y  current value : " + mouserPoint.getY() + " wanted " + END_POINT_Y_COORDINATE);
                 producerThreadProcess(mouserPoint, Y_COORDINATE_PRODUCER);
-                Util.println("thread y end current value : " + mouserPoint.getY() + " wanted " + END_POINT_Y_COORDINATE);
             }
         });
         
@@ -177,25 +178,19 @@ public class ProducerCoordinate {
     private void startPoint(final MousePoint MOUSE_POINT){
         if(Math.abs(X_COORDINATE_DISTANCE) > Math.abs(Y_COORDINATE_DISTANCE)){
             currentProducer = X_COORDINATE_PRODUCER;   
-            Util.println("start point x");
             
             if(Y_PRODUCER_STATE == NO_CHANGE_COORDINATE){
-                Util.println("start point only x");
                 X_ProducerThread.start();
             }else{ 
-                Util.println("start point x - >y");
                 X_ProducerThread.start();
                 Y_ProducerThread.start();
             }
         }else{
             currentProducer = Y_COORDINATE_PRODUCER;
-            Util.println("start point y");
             if(X_PRODUCER_STATE == NO_CHANGE_COORDINATE){
-                Util.println("start point only y");
                 Y_ProducerThread.start();
 
             }else{
-                Util.println("start point y - >x");
                 Y_ProducerThread.start();
                 X_ProducerThread.start();
             }

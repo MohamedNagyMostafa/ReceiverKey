@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mohamed.receiverKey.pointer;
+package com.mohamed.receiverKey.pointer.Actions.Moving;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Util;
 import java.awt.AWTException;
 import java.awt.MouseInfo;
 import java.awt.Robot;
@@ -18,16 +19,14 @@ import java.util.logging.Logger;
 public class MousePoint {
     private int mX;
     private int mY;
-    private Robot mouseControllRobot;
+    private Robot mMouseControllRobot;
     
-    public MousePoint(){
+    public MousePoint(final Robot MOUSE_SYSTEM_CONTROL){
         mX = MouseInfo.getPointerInfo().getLocation().x;
         mY = MouseInfo.getPointerInfo().getLocation().y;
-        try {
-            mouseControllRobot = new Robot();
-        } catch (AWTException ex) {
-            Logger.getLogger(MousePoint.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        mMouseControllRobot = MOUSE_SYSTEM_CONTROL;
+      
     }
    
     
@@ -48,8 +47,6 @@ public class MousePoint {
     }
     
     public void updateMouse(int producer){
-        mouseControllRobot.mouseMove(mX, mY);
-       
-        
+        mMouseControllRobot.mouseMove(mX, mY);
     }
 }

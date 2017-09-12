@@ -43,10 +43,15 @@ public class RecevierThread implements Runnable {
                 socket = socketServer.accept();
                 try (DataInputStream dataInputStream = new DataInputStream(socket.getInputStream())) {
                     String dataAsUTFString = dataInputStream.readUTF();
-                    
                     do{
-                        int[] coordinatesAsInt = decodeData(dataInputStream.readUTF());
-                        PointerControl.setPointerMovingAction(coordinatesAsInt[0], coordinatesAsInt[1]);
+                        if(dataAsUTFString.contains(SPLITING_STRING)){
+                            int[] coordinatesAsInt = decodeDataAsMovingEvent(dataAsUTFString);
+                            PointerControl.setPointerMovingAction(coordinatesAsInt[0], coordinatesAsInt[1]);
+                        }else{
+                            int clickEventAsInt = decodeDataAsClickEvent(dataAsUTFString);
+                            PointerControl.setPointerClickAction(clickEventAsInt);
+
+                        }
                         dataAsUTFString = dataInputStream.readUTF();
                         
                     }while(!dataAsUTFString.isEmpty());
@@ -67,10 +72,13 @@ public class RecevierThread implements Runnable {
         }
     }
     
-    private int[] decodeData(String dataAsString){
-        System.out.println(dataAsString);
+    private int[] decodeDataAsMovingEvent (String dataAsString){
         String[] splitData = dataAsString.split(SPLITING_STRING);
         return new int[]{Integer.parseInt(splitData[0]), Integer.parseInt(splitData[1])};
+    }
+    
+    private int decodeDataAsClickEvent (String dataAsString){
+        return Integer.parseInt(dataAsString);
     }
     
 }

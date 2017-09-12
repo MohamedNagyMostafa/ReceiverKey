@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mohamed.receiverKey.pointer;
+package com.mohamed.receiverKey.producer;
 
 import com.mohamed.receiverKey.producer.ProducerCoordinate;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Util;
@@ -15,7 +15,7 @@ import java.util.Locale;
  *
  * @author mohamednagy
  */
-public class Task {
+public class MovingTask {
     private final int X_COORDINATE_DISTANCE;
     private final int Y_COORIDNATE_DISTANCE;
     
@@ -23,7 +23,7 @@ public class Task {
     private int Y_COORDINATE_STATE;
     
     
-    public Task(int x_distance, int y_distance){
+    public MovingTask(int x_distance, int y_distance){
      
         X_COORDINATE_DISTANCE = x_distance;
         Y_COORIDNATE_DISTANCE = y_distance;

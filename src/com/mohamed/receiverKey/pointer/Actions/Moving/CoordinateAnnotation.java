@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mohamed.receiverKey.pointer;
+package com.mohamed.receiverKey.pointer.Actions.Moving;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

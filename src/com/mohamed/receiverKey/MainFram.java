@@ -6,6 +6,11 @@
 package com.mohamed.receiverKey;
 
 import com.mohamed.receiverKey.thread.RecevierThread;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -61,11 +66,11 @@ public class MainFram extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(connectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(connectionState, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29))
+                .addGap(40, 40, 40))
         );
 
         pack();
@@ -73,6 +78,10 @@ public class MainFram extends javax.swing.JFrame {
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
         RecevierThread recevierThread = new RecevierThread();
+
+        
+        
+           
     }//GEN-LAST:event_connectButtonActionPerformed
 
     
