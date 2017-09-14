@@ -20,6 +20,7 @@ public class PointerControl {
      * coordinate if there are values for them.
      * if producer is not started yet, start it and pass moving task.
      * Otherwise pass task directly to tasks queue.
+     * @param points
      * @param X_COORDINATE_DISTANCE_CHANGED the distance which happened in
      *                                      X-coordinate if it was positive value
      *                                      then this coordinate have increased otherwise
@@ -33,8 +34,7 @@ public class PointerControl {
       
         PointerLocationThread pointerLocationThread = PointerLocationThread.getInstance();
         
-        if(X_COORDINATE_DISTANCE_CHANGED != 0 || Y_COORDINATE_DISTANCE_CHANGED != 0)
-            pointerLocationThread.addTask(new MovingTask(X_COORDINATE_DISTANCE_CHANGED, Y_COORDINATE_DISTANCE_CHANGED));
+        pointerLocationThread.addTask(new MovingTask().encodePointsAsTask(points));
         if(!pointerLocationThread.isAlive())
             pointerLocationThread.start(); 
     } 
@@ -56,4 +56,5 @@ public class PointerControl {
         if(!pointerLocationThread.isAlive())
             pointerLocationThread.start(); 
     }
+    
 }
