@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 public class MousePoint {
     private int mX;
     private int mY;
+    private int k = 0;
     private Robot mMouseControllRobot;
     
     public MousePoint(final Robot MOUSE_SYSTEM_CONTROL){
@@ -47,6 +48,13 @@ public class MousePoint {
     }
     
     public void updateMouse(int producer){
+        Util.println(mX + " " + mY);
+        if(k++ % 4 == 0){
+            mMouseControllRobot.setAutoDelay(3);
+            Util.println(mX + " " + mY);
+        }else
+            mMouseControllRobot.setAutoDelay(0);
+
         mMouseControllRobot.mouseMove(mX, mY);
     }
 }

@@ -78,9 +78,6 @@ public class MainFram extends javax.swing.JFrame {
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
         RecevierThread recevierThread = new RecevierThread();
-
-        
-        
            
     }//GEN-LAST:event_connectButtonActionPerformed
 

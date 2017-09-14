@@ -29,7 +29,7 @@ public class PointerControl {
      *                                      then this coordinate have increased otherwise
      *                                      have decreased.
      */
-    public static void setPointerMovingAction(final int X_COORDINATE_DISTANCE_CHANGED, final int Y_COORDINATE_DISTANCE_CHANGED){
+    public static void setPointerMovingAction(Integer ... points){
       
         PointerLocationThread pointerLocationThread = PointerLocationThread.getInstance();
         

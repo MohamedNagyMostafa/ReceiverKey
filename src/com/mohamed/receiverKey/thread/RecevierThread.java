@@ -13,6 +13,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.function.IntPredicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,8 +46,8 @@ public class RecevierThread implements Runnable {
                     String dataAsUTFString = dataInputStream.readUTF();
                     do{
                         if(dataAsUTFString.contains(SPLITING_STRING)){
-                            int[] coordinatesAsInt = decodeDataAsMovingEvent(dataAsUTFString);
-                            PointerControl.setPointerMovingAction(coordinatesAsInt[0], coordinatesAsInt[1]);
+                            Integer[] coordinatesAsInt = decodeDataAsMovingEvent(dataAsUTFString);
+                            PointerControl.setPointerMovingAction(coordinatesAsInt);
                         }else{
                             int clickEventAsInt = decodeDataAsClickEvent(dataAsUTFString);
                             PointerControl.setPointerClickAction(clickEventAsInt);
@@ -72,9 +73,15 @@ public class RecevierThread implements Runnable {
         }
     }
     
-    private int[] decodeDataAsMovingEvent (String dataAsString){
+    private Integer[] decodeDataAsMovingEvent (String dataAsString){
         String[] splitData = dataAsString.split(SPLITING_STRING);
-        return new int[]{Integer.parseInt(splitData[0]), Integer.parseInt(splitData[1])};
+        ArrayList<Integer> points = new ArrayList<>();
+        
+        for(String pointAsString : splitData){
+            points.add(Integer.parseInt(pointAsString));
+        }
+        
+        return points.toArray(new Integer[points.size()]);
     }
     
     private int decodeDataAsClickEvent (String dataAsString){
